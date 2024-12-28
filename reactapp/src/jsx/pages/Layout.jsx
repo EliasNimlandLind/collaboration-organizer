@@ -3,13 +3,24 @@ import ColorModeSelector from '../colorModeSelector.jsx';
 import LoginButton from '../loginButton.jsx';
 import RegisterButton from '../registerButton.jsx';
 
+import ThemeContext from '../ThemeContext';
+import React, { useContext } from 'react';
+
 import '../../css/header.css';
 
 const Layout = () => {
+	const { theme } = useContext(ThemeContext);
+
 	return (
 		<>
-			<nav>
-				<ul className='nav-list'>
+			<nav
+				className={`nav ${
+					theme === 'dark' ? 'dark-theme-header' : 'light-theme-header'
+				}`}>
+				<ul
+					className={`ul ${
+						theme === 'dark' ? 'dark-theme-list' : 'light-theme-list'
+					}`}>
 					<li className='nav-item btn-primary'>
 						<Link to='/'>Home</Link>
 					</li>
