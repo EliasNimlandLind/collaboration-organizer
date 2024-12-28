@@ -16,7 +16,6 @@ const USERS_FILE = './users.json';
 app.use(cors());
 app.use(express.json());
 
-// Helper function to read users from a file
 const readUsersFromFile = () => {
 	try {
 		const usersData = fs.readFileSync(USERS_FILE, 'utf-8');
@@ -26,12 +25,10 @@ const readUsersFromFile = () => {
 	}
 };
 
-// Helper function to write users to a file
 const writeUsersToFile = (users) => {
 	fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
 };
 
-// Register Route
 app.post('/api/register', (req, res) => {
 	const { username, password } = req.body;
 	if (!username || !password) {
@@ -54,7 +51,6 @@ app.post('/api/register', (req, res) => {
 	res.status(201).json({ message: 'User registered successfully!' });
 });
 
-// Login Route
 app.post('/api/login', (req, res) => {
 	const { username, password } = req.body;
 	let users = readUsersFromFile();
@@ -70,7 +66,6 @@ app.post('/api/login', (req, res) => {
 	res.json({ token });
 });
 
-// Protected Route Example
 app.get(
 	'/api/protected',
 	expressJwt({ secret: 'your_jwt_secret', algorithms: ['HS256'] }),
@@ -79,7 +74,6 @@ app.get(
 	}
 );
 
-// Hard-coded articles data
 const articles = [
 	{
 		id: uuidv4(),
@@ -242,7 +236,6 @@ const sortArticles = (articles, sortBy) => {
 	});
 };
 
-// API endpoint to get articles
 app.get('/api/articles', (request, response) => {
 	let filteredArticles = articles;
 	const { topic, sortBy } = request.query;
