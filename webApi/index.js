@@ -1,35 +1,22 @@
-const express = require('express');
-const { expressjwt: expressJwt } = require('express-jwt');
-const cors = require('cors');
+import express from 'express';
+import { expressjwt as expressJwt } from 'express-jwt';
+import cors from 'cors';
 
-const fs = require('fs');
+import fs from 'fs';
 
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+import { insertUser, IsUsernameExisting } from './database/users.js';
 
-const { v4: uuidv4 } = require('uuid');
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
+import { v4 as uuidv4 } from 'uuid';
 
 const app = express();
-
-const USERS_FILE = './users.json';
 
 app.use(cors());
 app.use(express.json());
 
-const readUsersFromFile = () => {
-	try {
-		const usersData = fs.readFileSync(USERS_FILE, 'utf-8');
-		return JSON.parse(usersData);
-	} catch (error) {
-		return [];
-	}
-};
-
-const writeUsersToFile = (users) => {
-	fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
-};
-
-app.post('/api/register', (req, res) => {
+app.post('/api/register', async (req, res) => {
 	const { username, password } = req.body;
 	if (!username || !password) {
 		return res
@@ -37,17 +24,17 @@ app.post('/api/register', (req, res) => {
 			.json({ message: 'Username and password are required' });
 	}
 
-	let users = readUsersFromFile();
-	const userExists = users.find((user) => user.username === username);
-
-	if (userExists) {
-		return res.status(400).json({ message: 'Username already exists' });
+	const usernameExists = await IsUsernameExisting(username);
+	console.log(usernameExists);
+	if (usernameExists === true) {
+		return res
+			.status(400)
+			.json({ message: 'Username exists already, choose another one' });
 	}
 
 	const hashedPassword = bcrypt.hashSync(password, 8);
-	users.push({ username, password: hashedPassword });
-	writeUsersToFile(users);
 
+	insertUser(username, hashedPassword);
 	res.status(201).json({ message: 'User registered successfully!' });
 });
 
@@ -252,5 +239,11 @@ app.get('/api/articles', (request, response) => {
 
 const port = 3000;
 app.listen(port, () => {
-	console.log(`Backend API running at http://localhost:${port}`);
+	console.log('\n'.repeat(process.stdout.rows));
+	const date = new Date();
+	console.log(
+		`Backend API running at http://localhost:${port}, started`,
+		date.toLocaleTimeString(),
+		'\n'
+	);
 });
