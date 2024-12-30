@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
+import { ToastContainer } from 'react-toastify';
+import { displayToastError, displayToastSuccess } from '../message.jsx';
 
 import { postUser } from '../user.js';
 
@@ -18,14 +19,14 @@ const Register = () => {
 
 			if (data.status === 201) {
 				localStorage.setItem('userRegistered', 'true');
-				toast.success('Registration successful!', { autoClose: 3000 });
+				displayToastSuccess('Registration successful!');
 			} else if (data.status === 400) {
 				toast.error(data.message, { autoClose: 3000 });
 			}
 		} catch (error) {
-			toast.error('An error occurred during registration. Please try again.', {
-				autoClose: 3000,
-			});
+			displayToastError(
+				'An error occurred during registration. Please try again.'
+			);
 		}
 	};
 
@@ -38,7 +39,7 @@ const Register = () => {
 					<input
 						type='text'
 						value={username}
-						onChange={(e) => setUsername(e.target.value)}
+						onChange={(event) => setUsername(event.target.value)}
 					/>
 				</div>
 				<div>
@@ -46,7 +47,7 @@ const Register = () => {
 					<input
 						type='password'
 						value={password}
-						onChange={(e) => setPassword(e.target.value)}
+						onChange={(event) => setPassword(event.target.value)}
 					/>
 				</div>
 				<button

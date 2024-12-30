@@ -1,66 +1,20 @@
 import express from 'express';
-import { expressjwt as expressJwt } from 'express-jwt';
 import cors from 'cors';
 
-import fs from 'fs';
-
-import { insertUser, IsUsernameExisting } from './database/users.js';
-
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-
 import { v4 as uuidv4 } from 'uuid';
+
+import registrationRouter from './routes/register.js';
+import loginRouter from './routes/login.js';
+import protectedRouter from './routes/protected.js';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.post('/api/register', async (req, res) => {
-	const { username, password } = req.body;
-	if (!username || !password) {
-		return res
-			.status(400)
-			.json({ message: 'Username and password are required' });
-	}
-
-	const usernameExists = await IsUsernameExisting(username);
-	console.log(usernameExists);
-	if (usernameExists === true) {
-		return res
-			.status(400)
-			.json({ message: 'Username exists already, choose another one' });
-	}
-
-	const hashedPassword = bcrypt.hashSync(password, 8);
-
-	insertUser(username, hashedPassword);
-	res.status(201).json({ message: 'User registered successfully!' });
-});
-
-app.post('/api/login', (req, res) => {
-	const { username, password } = req.body;
-	let users = readUsersFromFile();
-	const user = users.find((u) => u.username === username);
-	if (!user) {
-		return res.status(400).json({ message: 'User not found' });
-	}
-	const isPasswordValid = bcrypt.compareSync(password, user.password);
-	if (!isPasswordValid) {
-		return res.status(401).json({ message: 'Invalid credentials' });
-	}
-	const token = jwt.sign({ username }, 'your_jwt_secret', { expiresIn: '1h' });
-	res.json({ token });
-});
-
-app.get(
-	'/api/protected',
-	expressJwt({ secret: 'your_jwt_secret', algorithms: ['HS256'] }),
-	(req, res) => {
-		res.json({ message: 'This is a protected route', user: req.user });
-	}
-);
-
+app.use(registrationRouter);
+app.use(loginRouter);
+app.use(protectedRouter);
 const articles = [
 	{
 		id: uuidv4(),

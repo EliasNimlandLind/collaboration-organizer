@@ -1,14 +1,14 @@
 import React, { useContext, useEffect } from 'react';
 import Main from './main';
 
-import ThemeContext from './ThemeContext.jsx';
+import ThemeContext from './themeContext.jsx';
 import '../css/App.css';
 
-import PrivacyPolicy from './pages/PrivacyPolicy.jsx';
+import PrivacyPolicy from './pages/privacyPolicy.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Layout from './pages/Layout';
+import Layout from './pages/layout';
 
-import NoPage from './pages/NoPage';
+import NoPage from './pages/noPage';
 
 function App() {
 	const { theme } = useContext(ThemeContext);

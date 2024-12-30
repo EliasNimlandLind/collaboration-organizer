@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { displayToastError } from '../message';
 
 const loginUser = async (username, password) => {
 	const response = await fetch('http://localhost:3000/api/login', {
@@ -18,17 +19,19 @@ const Login = ({ setIsLoggedIn }) => {
 	const [password, setPassword] = useState('');
 
 	const handleLogin = async () => {
-		const data = await loginUser(username, password);
+		try {
+			const data = await loginUser(username, password);
 
-		if (data.token) {
-			localStorage.setItem('token', data.token);
-			setIsLoggedIn(true);
-		} else {
-			toast.error('An error occurred during login. Please try again.', {
-				autoClose: 3000,
-			});
+			if (data.token) {
+				localStorage.setItem('token', data.token);
+				setIsLoggedIn(true);
+			}
+			window.location.reload(false);
+		} catch (error) {
+			displayToastError(
+				'An error occurred during registration. Please try again.'
+			);
 		}
-		window.location.reload(false);
 	};
 
 	return (
@@ -46,7 +49,7 @@ const Login = ({ setIsLoggedIn }) => {
 				value={password}
 				onChange={(event) => setPassword(event.target.value)}
 			/>
-			<button onClick={handleLogin}>Login</button> <ToastContainer />
+			<button onClick={handleLogin}>Login</button>
 			<ToastContainer />
 		</div>
 	);
