@@ -1,9 +1,9 @@
 import { Outlet, Link } from 'react-router-dom';
 import ColorModeSelector from '../colorModeSelector.jsx';
-import LoginButton from '../loginButton.jsx';
-import RegisterButton from '../registerButton.jsx';
+import LoginButton from '../login/loginButton.jsx';
+import RegisterButton from '../register/registerButton.jsx';
 
-import ThemeContext from '../ThemeContext';
+import ThemeContext from '../ThemeContext.jsx';
 import React, { useContext } from 'react';
 
 import '../../css/header.css';

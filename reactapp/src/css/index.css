@@ -8,8 +8,8 @@
   --inverted-dark-gray:#ffffff;
   
   --large-border-radius: 70px;
-  --background-light: url('../img/bg_light.png');
-  --background-dark: url('../img/bg_dark.png');
+  --background-light: url('../images/bg_light.png');
+  --background-dark: url('../images/bg_dark.png');
 }
 
 html {

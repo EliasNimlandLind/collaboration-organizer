@@ -10,7 +10,7 @@ import { ThemeProvider } from './ThemeContext.jsx';
 import LoadingAnimation from './loadingAnimation.jsx';
 import SearchBar from './searchBar.jsx';
 
-import ArticleParent from './ArticleParent.jsx';
+import ArticleParent from './articles/ArticleParent.jsx';
 
 createRoot(document.getElementById('root')).render(
 	<StrictMode>
