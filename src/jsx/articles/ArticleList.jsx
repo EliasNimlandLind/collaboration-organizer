@@ -85,17 +85,17 @@ const ArticleList = React.memo(
 		return (
 			<div>
 				<div>
-					<label htmlFor='sortBy'>Sortera efter:</label>
+					<label htmlFor='sortBy'>Sort by </label>
 					<select
 						id='sortBy'
 						name='sortBy'
 						className='form-select'
 						value={sortBy}
 						onChange={handleSortChange}>
-						<option value='author-ascending'>författare, stigande</option>
-						<option value='author-descending'>författare, fallande</option>
-						<option value='newest'>Nyast</option>
-						<option value='oldest'>Äldst</option>
+						<option value='author-ascending'>author, ascending</option>
+						<option value='author-descending'>author, descending</option>
+						<option value='newest'>newest</option>
+						<option value='oldest'>oldest</option>
 					</select>
 				</div>
 				{loading ? (
