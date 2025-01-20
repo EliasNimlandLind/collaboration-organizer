@@ -1,23 +1,14 @@
-# Collaboration organizer
+# Collaboration organizer frontend
 
 ## About
 
-The website supports user registration and login, using hashes. A logged in user is able to store preferences, eg., choosen color scheme.
+The website supports user registration and login, using hashes. A logged in user is able to store preferences, eg., choosen color scheme. The backend project can be found [here](https://github.com/EliasNimlandLind/collaboration-organizer-backend.git).
 
 ## Built using
 
 - JavaScript
 - HTML
 - CSS
-- bcrypt
-- cors
-- express
-  - express-jwt
-- jsonwebtoken
-- nodemon
-- node
-- postgres
-- uuid
 - nextui-org/alert
 - react
   - react-dom
@@ -25,26 +16,12 @@ The website supports user registration and login, using hashes. A logged in user
 
 ## Setup
 
-The database table storing user data can be created by executing:
-
-```sql
-CREATE TABLE IF NOT EXISTS public.users
-(
-    id integer NOT NULL DEFAULT nextval('users_id_seq'::regclass),
-    username character varying(50) COLLATE pg_catalog."default",
-    password_hash character varying(256) COLLATE pg_catalog."default",
-    CONSTRAINT users_pkey PRIMARY KEY (id)
-)
-```
+Install all dependencies by executing `npm install`. Start execution with `npm run dev`.
 
 ## Planned changes and features
 
 - Translate all text to English
-- Seperate backend and frontend logic into seperate repositories
-- Create a Python API to integrate articial intelligence and data analysis
-  - Training
-  - Using
-- CRUD operations on articles
+- Create, replace, update and delete functionality on articles
 - Being able to upload files such as articles written in advance
 - Background replacement
 - TypeScript migration
