@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { ToastContainer } from 'react-toastify';
-import { displayToastError, displayToastSuccess } from '../message.jsx';
+import { displayToastError, displayToastSuccess } from '../toast.jsx';
 
 import { postUser } from '../user.js';
 
@@ -19,9 +19,9 @@ const Register = () => {
 
 			if (data.status === 201) {
 				localStorage.setItem('userRegistered', 'true');
-				displayToastSuccess('Registration successful!');
+				displayToastSuccess('Registration successful');
 			} else if (data.status === 400) {
-				toast.error(data.message, { autoClose: 3000 });
+				displayToastError(data.message);
 			}
 		} catch (error) {
 			displayToastError(

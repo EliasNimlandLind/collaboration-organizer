@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { displayToastError } from '../message';
+import { ToastContainer } from 'react-toastify';
+import { displayToastError, displayToastSuccess } from '../toast';
 
 const loginUser = async (username, password) => {
 	const response = await fetch('http://localhost:3000/api/login', {
@@ -14,17 +13,21 @@ const loginUser = async (username, password) => {
 	return data;
 };
 
-const Login = ({ setIsLoggedIn }) => {
+const LoginForm = ({ setIsLoggedIn }) => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 
 	const handleLogin = async () => {
 		try {
 			const data = await loginUser(username, password);
-
 			if (data.token) {
 				localStorage.setItem('token', data.token);
-				setIsLoggedIn(true);
+				setTimeout(() => {
+					setIsLoggedIn(true);
+				}, 3700);
+				displayToastSuccess('Login successful');
+			} else {
+				displayToastError(data.message);
 			}
 			window.location.reload(false);
 		} catch (error) {
@@ -55,4 +58,4 @@ const Login = ({ setIsLoggedIn }) => {
 	);
 };
 
-export default Login;
+export default LoginForm;
