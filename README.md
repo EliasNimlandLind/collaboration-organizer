@@ -9,12 +9,13 @@ The website supports user registration and login, using hashes. A logged in user
 - JavaScript
 - HTML
 - CSS
-- bcryptjs
+- bcrypt
 - cors
 - express
   - express-jwt
 - jsonwebtoken
 - nodemon
+- node
 - postgres
 - uuid
 - nextui-org/alert
