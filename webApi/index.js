@@ -1,8 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 
-import { v4 as uuidv4 } from 'uuid';
-
 import registerRouter from './routes/register.js';
 import loginRouter from './routes/login.js';
 import protectedRouter from './routes/protected.js';
