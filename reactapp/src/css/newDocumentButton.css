@@ -1,0 +1,30 @@
+.plus-button {
+	width: 40px;
+	height: 40px;
+	position: relative;
+	cursor: pointer;
+	margin-left: 20px;
+}
+
+.plus-button::before,
+.plus-button::after {
+	content: '';
+	position: absolute;
+	background-color: black;
+}
+
+.plus-button::before {
+	width: 30px;
+	height: 4px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.plus-button::after {
+	width: 4px;
+	height: 30px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
