@@ -3,7 +3,7 @@ import ColorModeSelector from '../colorModeSelector.jsx';
 import LoginButton from '../login/loginButton.jsx';
 import RegisterButton from '../register/registerButton.jsx';
 
-import ThemeContext from '../ThemeContext.jsx';
+import ThemeContext from '../themeContext.jsx';
 import React, { useContext } from 'react';
 
 import '../../css/header.css';

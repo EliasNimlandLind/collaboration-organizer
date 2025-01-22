@@ -20,10 +20,9 @@ Install all dependencies by executing `npm install`. Start execution with `npm r
 
 ## Planned changes and features
 
-- Translate all text to English
+- Rename files to enforce standards
 - Create, replace, update and delete functionality on articles
 - Being able to upload files such as articles written in advance
 - Background replacement
 - TypeScript migration
 - Progressive web app features such as caching
-- Offline editing similar to the one found in Google Docs

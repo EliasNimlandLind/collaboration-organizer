@@ -4,11 +4,12 @@ import Main from './main';
 import ThemeContext from './themeContext.jsx';
 import '../css/App.css';
 
-import PrivacyPolicy from './pages/privacyPolicy.jsx';
+import PrivacyPolicy from './pages/PrivacyPolicy.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './pages/layout';
 
-import NoPage from './pages/noPage';
+import NoPage from './pages/NoPage.jsx';
+import NewDocumentPage from './pages/NewDocument.jsx';
 
 function App() {
 	const { theme } = useContext(ThemeContext);
@@ -28,7 +29,10 @@ function App() {
 							path='privacy-policy'
 							element={<PrivacyPolicy />}
 						/>
-
+						<Route
+							path='new-document'
+							element={<NewDocumentPage />}
+						/>
 						<Route
 							path='*'
 							element={<NoPage />}

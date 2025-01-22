@@ -1,3 +1,5 @@
+import { UserContext } from './UserContext';
+
 export const postUser = async (username, password, url) => {
 	const response = await fetch(url, {
 		method: 'POST',

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { displayToastError, displayToastSuccess } from '../toast';
 
+import { UserContext } from '../UserContext';
+import { useContext } from 'react';
 const loginUser = async (username, password) => {
 	const response = await fetch('http://localhost:3000/api/login', {
 		method: 'POST',
@@ -16,6 +18,7 @@ const loginUser = async (username, password) => {
 const LoginForm = ({ setIsLoggedIn }) => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const { setCurrentLoggedInUser } = useContext(UserContext);
 
 	const handleLogin = async () => {
 		try {

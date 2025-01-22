@@ -1,7 +1,7 @@
 import '../css/colorModeSelector.css';
 import React, { useState, useEffect, useContext } from 'react';
 
-import ThemeContext from './ThemeContext.jsx';
+import ThemeContext from './themeContext.jsx';
 
 const useTheme = () => {
 	const { toggleTheme } = useContext(ThemeContext);

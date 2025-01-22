@@ -3,7 +3,11 @@ import ListItem from '@tiptap/extension-list-item';
 import TextStyle from '@tiptap/extension-text-style';
 import { EditorProvider, useCurrentEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import React from 'react';
+import '../../css/textEditor.css';
+
+import React, { useContext } from 'react';
+
+import { UserContext } from '../UserContext';
 
 const MenuBar = () => {
 	const { editor } = useCurrentEditor();
@@ -12,9 +16,44 @@ const MenuBar = () => {
 		return null;
 	}
 
+	const username = useContext(UserContext).currentLoggedInUser;
+
+	const saveDocument = () => {
+		console.log(username);
+		postDocument(username);
+	};
+
+	const postDocument = async (author) => {
+		const fileName = document.getElementById('input-file-name').value;
+		const keywords = document.getElementById('input-keywords').value.split(',');
+
+		const response = await fetch('http://localhost:3000/api/documents', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				fileName: fileName,
+				metadata: {
+					lastDateSaved: new Date(),
+					keywords: [...keywords],
+					author: author,
+				},
+				content: editor.getJSON(),
+			}),
+		});
+	};
+
 	return (
-		<div className='control-group'>
+		<div>
+			<input
+				id='input-file-name'
+				placeholder='Enter file name'></input>
+			<input
+				id='input-keywords'
+				placeholder='Enter keywords'></input>
 			<div className='button-group'>
+				<button onClick={saveDocument}>Save</button>
 				<button
 					onClick={() => editor.chain().focus().toggleBold().run()}
 					disabled={!editor.can().chain().focus().toggleBold().run()}
@@ -148,7 +187,7 @@ const MenuBar = () => {
 							? 'is-active'
 							: ''
 					}>
-					Purple
+					Purple highlight
 				</button>
 			</div>
 		</div>
@@ -161,11 +200,11 @@ const extensions = [
 	StarterKit.configure({
 		bulletList: {
 			keepMarks: true,
-			keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+			keepAttributes: false,
 		},
 		orderedList: {
 			keepMarks: true,
-			keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+			keepAttributes: false,
 		},
 	}),
 ];
